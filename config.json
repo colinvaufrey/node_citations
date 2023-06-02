@@ -1,0 +1,5 @@
+{
+	"port": 3051,
+	"databaseFolder": "data",
+	"databaseFile": "database.sqlite"
+}
