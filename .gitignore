@@ -1,3 +1,7 @@
+# Application specific files
+tests
+data/
+
 # Logs
 logs
 *.log

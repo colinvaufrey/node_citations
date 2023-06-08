@@ -1,25 +1,25 @@
 import { Citation, CitationAuthor, initDatabase } from "../database/db";
-import { decode } from "html-entities";
+// import { decode } from "html-entities";
 
-import authors from "../../data/Auteur.json";
-import citations from "../../data/Citation.json";
+import authors from "../../data/CitationAuthors.json";
+import citations from "../../data/Citations.json";
 
 (async () => {
 	await initDatabase();
 
 	citations.forEach((citation) => {
 		const foundCitation = new Citation({
-			id: citation.ref,
-			text: decode(citation.citation),
-			year: citation.annee,
+			id: citation.id,
+			text: citation.text,
+			year: citation.year,
 		});
 		foundCitation.save();
 	});
 
 	authors.forEach((author) => {
 		const foundAuthor = new CitationAuthor({
-			citationId: author.refCitation,
-			authorName: decode(author.nom),
+			citationId: author.citationId,
+			authorName: author.authorName,
 		});
 		foundAuthor.save();
 	});

@@ -14,9 +14,6 @@ import { databaseFolder, databaseFile } from "../../config.json";
 
 @Table
 class Citation extends Model {
-	@Column({ primaryKey: true, autoIncrement: true })
-	public id: number;
-
 	@Column({ allowNull: false })
 	public text: string;
 
