@@ -30,4 +30,4 @@ app.delete("/citations/:id", deleteCitation); // Deletes the citation with the g
 
 app.listen(PORT, () => {
 	console.log(`Citations server running at http://localhost:${PORT}`);
-});
+}).setTimeout(60_000);

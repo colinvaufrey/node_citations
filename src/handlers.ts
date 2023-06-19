@@ -66,11 +66,17 @@ function getCitationById(req: Request, res: Response) {
 
 function postCitation(req: Request, res: Response) {
 	const citation = req.body;
-	Citation.create(citation, { include: [CitationAuthor] }).then(
-		(citation) => {
+	Citation.create(citation, { include: [CitationAuthor] })
+		.then((citation) => {
 			res.status(201).json(citation);
-		}
-	);
+		})
+		.catch((error) => {
+			res.status(400).json({
+				error: error.message,
+			});
+			console.log("Error while creating citation");
+			console.log(error);
+		});
 }
 
 function putCitation(req: Request, res: Response) {
@@ -83,12 +89,14 @@ function putCitation(req: Request, res: Response) {
 			CitationAuthor.destroy({ where: { citationId: id } })
 				.then(() => {
 					// Then, create the new authors
-					const authors = citation.authors.map((author) => {
-						return {
-							citationId: id,
-							authorName: author.authorName,
-						};
-					});
+					const authors = citation.authors.map(
+						(author: CitationAuthor) => {
+							return {
+								citationId: id,
+								authorName: author.authorName,
+							};
+						}
+					);
 
 					CitationAuthor.bulkCreate(authors)
 						.then(() => {
